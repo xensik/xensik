@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,900");
+@import url("https://fonts.googleapis.com/css?family=JetBrains+Mono");
 @import url("fontawesome-all.min.css");
 
 html, body, div, span, applet, object,
@@ -94,7 +94,7 @@ input, select, textarea {
 
 	body, input, select, textarea {
 		color: #fff;
-		font-family: 'Source Sans Pro', sans-serif;
+		font-family: 'JetBrains Mono';
 		font-size: 15pt;
 		font-weight: 300 !important;
 		letter-spacing: -0.025em;
@@ -237,7 +237,7 @@ input, select, textarea {
 		margin-left: 50vw;
 		transform: translate(-50%);
 		min-height: 100%;
-		filter: hue-rotate(340deg) contrast(1.2) brightness(0.7) grayscale(0.5) blur(1px);
+		filter: hue-rotate(300deg) contrast(1.5) brightness(0.6) grayscale(0.3) blur(0px);
 	}
 
 /* Main */
@@ -430,7 +430,7 @@ input, select, textarea {
 	}
 
 		#header h1 {
-			font-size: 4.35em;
+			font-size: 4em;
 			font-weight: 900;
 			letter-spacing: -0.035em;
 			line-height: 1em;
@@ -443,7 +443,7 @@ input, select, textarea {
 		}
 
 		#header nav {
-			margin: 1.5em 0 0 0;
+			margin: 1.5em 0 1em 0;
 		}
 
 			#header nav li {
@@ -461,7 +461,7 @@ input, select, textarea {
 				transform: translate3d(0,0,0);
 				display: inline-block;
 				height: 5.35em;
-				line-height: 5.885em;
+				line-height: 6.5em;
 				opacity: 0;
 				position: relative;
 				top: 0;
@@ -550,16 +550,16 @@ input, select, textarea {
 					-webkit-transition: all 0.2s ease-in-out;
 					-ms-transition: all 0.2s ease-in-out;
 					transition: all 0.2s ease-in-out;
-					border-radius: 100%;
-					border: solid 1px #fff;
+					border-radius: 50%;
+					border: solid 2px #fff;
 					display: block;
-					font-size: 1.75em;
-					height: 2.5em;
-					line-height: 2.5em;
+					font-size: 2em;
+					height: 2.4em;
+					line-height: 2.4em;
 					position: relative;
 					text-align: center;
 					top: 0;
-					width: 2.5em;
+					width: 2.4em;
 				}
 
 				#header nav a:hover {
