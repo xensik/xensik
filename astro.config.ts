@@ -7,6 +7,10 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://xensik.dev',
 
+  devToolbar: {
+    enabled: false
+  },
+
   vite: {
     plugins: [tailwindcss()],
   },

@@ -1,40 +1,147 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import BaseLayout from '../layouts/base.astro';
 ---
 
 <BaseLayout title="404 · xensik" description="Page not found">
-  <div id="wrapper">
-    <div id="intro"></div>
-    <video id="background" autoplay muted loop playsinline preload="auto">
-      <source src="/assets/img/background.mp4" type="video/mp4" />
-    </video>
+  <video class="bg-video" autoplay muted loop playsinline preload="auto">
+    <source src="/assets/img/background.mp4" type="video/mp4" />
+  </video>
 
-    <script>
-      const video = document.getElementById('background') as HTMLVideoElement;
-      if (video) {
-        video.muted = true;
-        video.play().catch(() => {
-          document.addEventListener('click', () => video.play(), { once: true });
-          document.addEventListener('touchstart', () => video.play(), { once: true });
-        });
-      }
-    </script>
+  <div class="overlay" aria-hidden="true"></div>
 
-    <div id="main">
-      <header id="header">
-        <h1>404</h1>
-        <p>this page doesn't exist</p>
-        <nav>
-          <ul>
-            <li>
-              <a href="/" class="icon solid fa-home"><span class="label">Home</span></a>
-            </li>
-          </ul>
-        </nav>
-      </header>
-      <footer id="footer">
-        <span>Copyright &copy; {new Date().getFullYear()}. All Rights Reserved.</span>
-      </footer>
+  <main class="fixed inset-0 flex flex-col items-center justify-center select-none">
+
+    <div class="text-center">
+
+      <h1
+        class="glitch font-black leading-none tracking-tighter text-white"
+        style="font-size: clamp(7rem, 22vw, 16rem);"
+        data-text="404"
+      >404</h1>
+
+      <div class="mt-8 h-px bg-white/15 entry" style="animation-delay: 0.05s;"></div>
+
+      <p class="mt-7 text-xs tracking-[0.35em] text-white/60 uppercase entry" style="animation-delay: 0.15s;">
+        page not found
+      </p>
+
+      <a
+        href="/"
+        class="group mt-10 inline-flex items-center gap-3 text-xs tracking-[0.25em] text-white/60 uppercase transition-colors duration-500 hover:text-white/90 entry"
+        style="animation-delay: 0.28s;"
+      >
+        <span class="block h-px w-6 bg-current transition-all duration-500 group-hover:w-10"></span>
+        go home
+      </a>
+
     </div>
-  </div>
+
+  </main>
+
+  <script>
+    const video = document.querySelector('.bg-video') as HTMLVideoElement;
+    if (video) {
+      video.muted = true;
+      video.play().catch(() => {
+        document.addEventListener('click', () => video.play(), { once: true });
+        document.addEventListener('touchstart', () => video.play(), { once: true });
+      });
+    }
+  </script>
+
 </BaseLayout>
+
+<style>
+  /* ── Video background ──────────────────────────── */
+  .bg-video {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    filter: hue-rotate(300deg) contrast(1.5) brightness(0.5) grayscale(0.35);
+  }
+
+  .overlay {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(ellipse at center, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.72) 100%);
+    pointer-events: none;
+  }
+
+  /* ── entry fade-up ─────────────────────────────── */
+  .entry {
+    opacity: 0;
+    animation: entry-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  @keyframes entry-up {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── 404 split-slice glitch ────────────────────── */
+  .glitch {
+    position: relative;
+    opacity: 0;
+    animation:
+      entry-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards,
+      glitch-trigger 4s 1s infinite steps(1);
+  }
+
+  .glitch::before,
+  .glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    inset: 0;
+    font: inherit;
+    pointer-events: none;
+    clip-path: polygon(0 0, 0 0, 0 0, 0 0);
+  }
+
+  @keyframes glitch-trigger {
+    0%, 92%, 100% { color: #fff;         transform: translate(0); }
+    92.9% { color: transparent; transform: translate(  0,   0); }
+    93%   { color: transparent; transform: translate( 14px, 0); }
+    93.5% { color: transparent; transform: translate(-10px, 0); }
+    94%   { color: transparent; transform: translate( 12px, 0); }
+    94.5% { color: transparent; transform: translate( -6px, 0); }
+    95%   { color: transparent; transform: translate(  8px, 0); }
+    95.5% { color: transparent; transform: translate(-11px, 0); }
+    96%   { color: transparent; transform: translate(  6px, 0); }
+    96.5% { color: transparent; transform: translate(  0,   0); }
+    97%   { color: #fff;         transform: translate(  0,   0); }
+  }
+
+  .glitch::before { animation: glitch-slice-a 4s 1s infinite steps(1); }
+  .glitch::after  { animation: glitch-slice-b 4s 1s infinite steps(1); }
+
+  /* top half — moves RIGHT */
+  @keyframes glitch-slice-a {
+    0%, 92%, 100% { clip-path: polygon(0 0,0 0,0 0,0 0); transform: translate(0);        color: #fff; }
+    92.9% { clip-path: polygon(0 0%,100% 0%,100% 46%,0 46%); transform: translate(  0,    0); color: #fff; }
+    93%   { clip-path: polygon(0 0%,100% 0%,100% 46%,0 46%); transform: translate( 14px,  0); color: #c678ff; }
+    93.5% { clip-path: polygon(0 0%,100% 0%,100% 46%,0 46%); transform: translate(-10px,  0); color: #fff; }
+    94%   { clip-path: polygon(0 0%,100% 0%,100% 46%,0 46%); transform: translate( 12px,  0); color: #bf00ff; }
+    94.5% { clip-path: polygon(0 8%,100% 8%,100% 50%,0 50%);  transform: translate( -6px,  0); color: #fff; }
+    95%   { clip-path: polygon(0 0%,100% 0%,100% 46%,0 46%); transform: translate(  8px,  0); color: #c678ff; }
+    95.5% { clip-path: polygon(0 0%,100% 0%,100% 46%,0 46%); transform: translate(-11px,  0); color: #fff; }
+    96%   { clip-path: polygon(0 0%,100% 0%,100% 46%,0 46%); transform: translate(  6px,  0); color: #fff; }
+    96.5% { clip-path: polygon(0 0,0 0,0 0,0 0);              transform: translate(  0,    0); color: #fff; }
+  }
+
+  /* bottom half — moves LEFT */
+  @keyframes glitch-slice-b {
+    0%, 92%, 100% { clip-path: polygon(0 0,0 0,0 0,0 0); transform: translate(0);        color: #fff; }
+    92.9% { clip-path: polygon(0 46%,100% 46%,100% 100%,0 100%); transform: translate(    0, 0); color: #fff; }
+    93%   { clip-path: polygon(0 46%,100% 46%,100% 100%,0 100%); transform: translate( -14px, 0); color: #fff; }
+    93.5% { clip-path: polygon(0 46%,100% 46%,100% 100%,0 100%); transform: translate(  10px, 0); color: #bf00ff; }
+    94%   { clip-path: polygon(0 46%,100% 46%,100% 100%,0 100%); transform: translate( -12px, 0); color: #fff; }
+    94.5% { clip-path: polygon(0 44%,100% 44%,100% 92%,0 92%);   transform: translate(   6px, 0); color: #c678ff; }
+    95%   { clip-path: polygon(0 46%,100% 46%,100% 100%,0 100%); transform: translate(  -8px, 0); color: #fff; }
+    95.5% { clip-path: polygon(0 46%,100% 46%,100% 100%,0 100%); transform: translate(  11px, 0); color: #bf00ff; }
+    96%   { clip-path: polygon(0 46%,100% 46%,100% 100%,0 100%); transform: translate(  -6px, 0); color: #fff; }
+    96.5% { clip-path: polygon(0 0,0 0,0 0,0 0);                 transform: translate(    0, 0); color: #fff; }
+  }
+</style>

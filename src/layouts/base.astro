@@ -1,6 +1,5 @@
 ---
 import '../styles/global.css';
-import '../styles/main.css';
 
 interface Props {
   title?: string;
@@ -8,8 +7,8 @@ interface Props {
 }
 
 const {
-  title = 'Xenxo Espasandín • xensik',
-  description = 'Software developer & Reverse Engineering enthusiast',
+  title = 'xensik • Xenxo Espasandín',
+  description = 'Building software, breaking binaries',
 } = Astro.props;
 
 const siteUrl = 'https://xensik.dev';
@@ -23,7 +22,7 @@ const jsonLd = {
   alternateName: 'xensik',
   url: siteUrl,
   image: coverImage,
-  jobTitle: 'Software Developer',
+  jobTitle: 'Software Engineer',
   description,
   sameAs: [
     'https://twitter.com/xensik',
