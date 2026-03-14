@@ -1,0 +1,96 @@
+---
+import '../styles/global.css';
+import '../styles/main.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Xenxo Espasandín • xensik',
+  description = 'Software developer & Reverse Engineering enthusiast',
+} = Astro.props;
+
+const siteUrl = 'https://xensik.dev';
+const coverImage = `${siteUrl}/assets/meta/cover.png`;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Xenxo Espasandín',
+  alternateName: 'xensik',
+  url: siteUrl,
+  image: coverImage,
+  jobTitle: 'Software Developer',
+  description,
+  sameAs: [
+    'https://twitter.com/xensik',
+    'https://github.com/xensik',
+    'https://discord.com/users/248115862567911424/',
+  ],
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <link rel="canonical" href={canonicalURL} />
+    <meta name="robots" content="index, follow" />
+    <meta name="keywords" content="Xenxo, Espasandin, Espasandín, xensik, xsk" />
+    <meta name="author" content="xensik" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#000000" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:image" content={coverImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content={description} />
+    <meta property="og:site_name" content="xensik" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@xensik" />
+    <meta name="twitter:creator" content="@xensik" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:url" content={canonicalURL} />
+    <meta name="twitter:image" content={coverImage} />
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/meta/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/meta/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/meta/favicon-16x16.png" />
+    <link rel="shortcut icon" href="/assets/meta/favicon.ico" />
+    <link rel="manifest" href="/assets/meta/site.webmanifest" />
+
+    <!-- Styles -->
+    <noscript><link rel="stylesheet" href="/assets/css/noscript.css" /></noscript>
+
+    <!-- Structured data -->
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </head>
+  <body class="is-preload">
+    <slot />
+    <script>
+      window.onload = function () {
+        document.body.classList.remove('is-preload');
+      };
+      window.ontouchmove = function () {
+        return false;
+      };
+      window.onorientationchange = function () {
+        document.body.scrollTop = 0;
+      };
+    </script>
+  </body>
+</html>

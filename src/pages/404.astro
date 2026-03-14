@@ -1,0 +1,40 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="404 · xensik" description="Page not found">
+  <div id="wrapper">
+    <div id="intro"></div>
+    <video id="background" autoplay muted loop playsinline preload="auto">
+      <source src="/assets/img/background.mp4" type="video/mp4" />
+    </video>
+
+    <script>
+      const video = document.getElementById('background') as HTMLVideoElement;
+      if (video) {
+        video.muted = true;
+        video.play().catch(() => {
+          document.addEventListener('click', () => video.play(), { once: true });
+          document.addEventListener('touchstart', () => video.play(), { once: true });
+        });
+      }
+    </script>
+
+    <div id="main">
+      <header id="header">
+        <h1>404</h1>
+        <p>this page doesn't exist</p>
+        <nav>
+          <ul>
+            <li>
+              <a href="/" class="icon solid fa-home"><span class="label">Home</span></a>
+            </li>
+          </ul>
+        </nav>
+      </header>
+      <footer id="footer">
+        <span>Copyright &copy; {new Date().getFullYear()}. All Rights Reserved.</span>
+      </footer>
+    </div>
+  </div>
+</BaseLayout>
