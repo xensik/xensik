@@ -6,16 +6,16 @@ import BaseLayout from '../layouts/base.astro';
   <div class="intro-ca" aria-hidden="true"></div>
   <div class="scene">
 
-    <video class="bg-video" autoplay muted loop playsinline preload="auto">
+    <video class="bg-video" playsinline autoplay loop muted preload="auto">
       <source src="/assets/img/background.mp4" type="video/mp4" />
     </video>
 
     <div class="overlay" aria-hidden="true"></div>
 
     <main class="content">
-      <p class="greeting" aria-hidden="true">Hi&#x1F44B;&#x1F3FC;, I'm</p>
+      <p class="greeting" aria-hidden="true">Hi, I'm</p>
 
-      <h1 class="name" data-text="xensik.">xensik.</h1>
+      <h1 class="name" data-text="xensik_">xensik.</h1>
 
       <p class="subtitle">building software, breaking binaries</p>
 
@@ -208,7 +208,6 @@ import BaseLayout from '../layouts/base.astro';
     text-transform: uppercase;
     color: rgba(255,255,255,0.6);
     margin-bottom: 0.5em;
-    transform: translate(-0.5em, 0);
   }
 
   .name {
@@ -239,7 +238,6 @@ import BaseLayout from '../layouts/base.astro';
     color: rgba(255,255,255,0.6);
     line-height: 1.75;
     margin-top: 0.75em;
-    transform: translate(-0.5em, 0);
   }
 
   /* -- Social links ----------------------------------- */
